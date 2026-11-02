@@ -1,0 +1,15 @@
+global.THREE = require('three');global.fflate = require('fflate');global.window=global;global.self=global;
+global.document={createElementNS:()=>({style:{}}),createElement:()=>({style:{},getContext:()=>null})};
+require('three/examples/js/curves/NURBSUtils.js');require('three/examples/js/curves/NURBSCurve.js');
+require('three/examples/js/loaders/FBXLoader.js');require('three/examples/js/utils/BufferGeometryUtils.js');
+THREE.TextureLoader.prototype.load=function(){return new THREE.Texture();};
+console.warn=()=>{};
+const fs=require('fs');const buf=fs.readFileSync('/mnt/user-data/uploads/sm_rifle.fbx');
+const g=new THREE.FBXLoader().parse(buf.buffer.slice(buf.byteOffset,buf.byteOffset+buf.byteLength),'');g.updateMatrixWorld(true);
+let mesh;g.traverse(o=>{if(o.isMesh)mesh=o;});
+let geo=mesh.geometry.clone();geo.applyMatrix4(mesh.matrixWorld);geo.deleteAttribute('color');
+geo=THREE.BufferGeometryUtils.mergeVertices(geo,1e-4);
+console.log('verts',geo.attributes.position.count,'tris',geo.index.count/3);
+const out={p:Array.from(geo.attributes.position.array),n:Array.from(geo.attributes.normal.array),u:Array.from(geo.attributes.uv.array),i:Array.from(geo.index.array)};
+fs.writeFileSync('rifle.json',JSON.stringify(out));
+geo.computeBoundingBox();console.log(geo.boundingBox);

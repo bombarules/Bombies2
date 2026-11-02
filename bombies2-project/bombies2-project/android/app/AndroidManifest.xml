@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.shotbomba.outbreak" android:versionCode="45" android:versionName="6.1">
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <application android:label="@string/app_name" android:icon="@mipmap/ic_bombies" android:roundIcon="@mipmap/ic_bombies" android:theme="@style/GameTheme" android:hardwareAccelerated="true" android:allowBackup="true">
+        <activity android:name="com.shotbomba.outbreak.MainActivity" android:exported="true" android:screenOrientation="portrait" android:configChanges="orientation|screenSize|keyboardHidden|screenLayout|uiMode">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
